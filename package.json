@@ -1,0 +1,14 @@
+{
+  "name": "Eqaim-assignment",
+  "version": "1.0.0",
+  "description": "Description of your project",
+  "main": "app.js",  // Replace with the entry point file of your project
+  "scripts": {
+    "start": "node app.js"  // Replace with the command to start your application
+  },
+  "author": "",
+  "license": "ISC",  // Choose an appropriate license
+  "dependencies": {
+    // Add your project's dependencies here
+  }
+}
