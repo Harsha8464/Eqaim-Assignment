@@ -36,12 +36,18 @@ jobs:
         export NVM_DIR="$HOME/.nvm"
         [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
+        # List files and directories in the current working directory
+        ls
+
+        # Navigate to the project directory
+        cd ~/Eqaim-Assignment  # Replace with the actual path to your project directory
+
         # Install and use Node.js 16
         nvm install 16
         nvm use 16
 
     - name: Install Dependencies and Build
       run: |
-        cd ~/Eqaim-Assignment  # Replace with the actual path to your project directory
+        # Install project dependencies and build
         npm install
         npm run build
