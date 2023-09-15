@@ -17,21 +17,23 @@ jobs:
           exit 0
         fi
 
+    - name: Checkout code
+      uses: actions/checkout@v2
+
     - name: Set up Node.js
-      run: |
-        # Install Node.js (replace '16' with the desired version)
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-        export NVM_DIR="$HOME/.nvm"
-        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-        nvm install 16
-        nvm use 16
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
 
     - name: Bump Node.js version
       run: |
         # Your code to bump Node.js version goes here
+        # For example, you can use nvm to switch Node.js versions:
+        nvm install 16
+        nvm use 16
 
     - name: Install Dependencies and Build
       run: |
-        # Your code to install dependencies and build goes here
+        cd s3/app.js  # Replace with the actual path to your project directory
         npm install
         npm run build
