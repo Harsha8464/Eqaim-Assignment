@@ -1,34 +1,37 @@
-name: Bump Node.js version on master push
+name: Bump Node.js Version
 
 on:
   push:
     branches:
       - master
 
-jobs: 
+jobs:
   bump-node-version:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-      - name: Set up Node.js
-        uses: action/setup-node@master
-        with:
-          node-version: '14'  #set your desired Node.js version here
+    - name: Check if it's a master branch push
+      run: |
+        if [[ "$GITHUB_REF" != "refs/heads/master" ]]; then
+          echo "This is not the master branch. Exiting..."
+          exit 0
+        fi
 
-      - name: Install Dependencies
-        run: npm install  #or yarn install, depending on your project setup
-      - name: Bump Node.js version
-        run: |
-          #you can use a tool like 'nvm' or 'n' to bump Node.js verison
-          # Example using 'n' to bump to the latest LTS version
+    - name: Set up Node.js
+      run: |
+        # Install Node.js (replace '16' with the desired version)
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+        export NVM_DIR="$HOME/.nvm"
+        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+        nvm install 16
+        nvm use 16
 
-          n lts
-      - name: Commit and push bumped Node.js version
-        run: |
-          git config --global user.name "Harsha Vardhan"
-          git config --global user.email "harshavardhan@gmail.com"
-          git add .nvmrc  # Assuming you store Node.js version on a .nvmrc file
-          git commit -m "Bump Node.js version"
-          git pull
+    - name: Bump Node.js version
+      run: |
+        # Your code to bump Node.js version goes here
+
+    - name: Install Dependencies and Build
+      run: |
+        # Your code to install dependencies and build goes here
+        npm install
+        npm run build
