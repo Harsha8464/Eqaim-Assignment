@@ -1,13 +1,13 @@
 {
-  "name": "Eqaim-assignment",
+  "name": "eqaim-assignment",
   "version": "1.0.0",
   "description": "Description of your project",
-  "main": "app.js",  // Replace with the entry point file of your project
+  "main": "app.js",
   "scripts": {
-    "start": "node app.js"  // Replace with the command to start your application
+    "start": "node app.js"
   },
   "author": "",
-  "license": "ISC",  // Choose an appropriate license
+  "license": "MIT",
   "dependencies": {
     // Add your project's dependencies here
   }
