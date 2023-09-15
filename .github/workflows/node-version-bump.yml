@@ -42,6 +42,6 @@ jobs:
 
     - name: Install Dependencies and Build
       run: |
-        cd ../Node.js  # Replace with the actual path to your project directory
+        cd  /root/Eqaim-Assignment  # Replace with the actual path to your project directory
         npm install
         npm run build
