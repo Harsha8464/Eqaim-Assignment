@@ -39,9 +39,6 @@ jobs:
         # List files and directories in the current working directory
         ls
 
-        # Navigate to the project directory
-        cd ~/Eqaim-Assignment  # Replace with the actual path to your project directory
-
         # Install and use Node.js 16
         nvm install 16
         nvm use 16
