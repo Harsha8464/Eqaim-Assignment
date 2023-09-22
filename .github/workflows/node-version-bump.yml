@@ -1,50 +1,27 @@
-name: Bump Node.js Version
-
+# on merge to master from pull request
+name: Bump version
 on:
-  push:
+  pull_request:
+    types:
+      - closed
     branches:
       - master
 
 jobs:
-  bump-node-version:
-    runs-on: ubuntu-latest
-
+  build:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
     steps:
-    - name: Check if it's a master branch push
-      run: |
-        if [[ "$GITHUB_REF" != "refs/heads/master" ]]; then
-          echo "This is not the master branch. Exiting..."
-          exit 0
-        fi
-
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
+    - uses: actions/checkout@v3
       with:
-        node-version: '14'
+        ref: ${{ github.event.pull_request.merge_commit_sha }}
+        fetch-depth: '0'
 
-    - name: Install nvm
-      run: |
-        # Install nvm
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-
-    - name: Use Node.js 16
-      run: |
-        # Source nvm to make it available
-        export NVM_DIR="$HOME/.nvm"
-        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-        # Navigate to the project directory
-        cd $GITHUB_WORKSPACE
-
-        # Install and use Node.js 16
-        nvm install 16
-        nvm use 16
-
-    - name: Install Dependencies and Build
-      run: |
-        # Install project dependencies and build
-        npm install
-        npm run build
+    - name: Bump version and push tag
+      uses: anothrNick/github-tag-action@1.64.0 # Don't use @master or @v1 unless you're happy to test the latest version
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
+        WITH_V: true
+        PRERELEASE: true
